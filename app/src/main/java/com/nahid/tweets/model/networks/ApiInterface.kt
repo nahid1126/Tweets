@@ -13,7 +13,7 @@ interface ApiInterface {
     ): Response<List<TweetList>>
 
     @GET("b/66b9d97be41b4d34e41f33b7?meta=false")
-    @Headers("X-JSON-Path : tweets..category")
+    @Headers("X-JSON-Path:tweets..category")
     suspend fun getTweetsCategory(): Response<List<String>>
 
 }
