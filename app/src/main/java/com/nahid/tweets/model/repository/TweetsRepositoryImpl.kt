@@ -51,7 +51,7 @@ class TweetsRepositoryImpl @Inject constructor(
     override suspend fun requestForTweets(category: String) {
         _tweetsResponse.emit(NetworkResponse.Loading())
         try {
-            val response = apiInterface.getTweets(category)
+            val response = apiInterface.getTweets("tweets[?(@.category==\"$category\")]")
             if (response.isSuccessful) {
                 val body = response.body()
                 if (body != null) {

@@ -18,28 +18,31 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.nahid.tweets.R
 import com.nahid.tweets.model.networks.NetworkResponse
 import com.nahid.tweets.viewmodel.TweetsViewModel
 
 @Composable
 fun CategoryScreen(
-    viewModel: TweetsViewModel = hiltViewModel()
 ) {
-    // Start requesting categories when the composable is first launched
+
+    val viewModel: TweetsViewModel = hiltViewModel<TweetsViewModel>()
+
     LaunchedEffect(Unit) {
         viewModel.reqForTweetsCategory()
     }
 
-    // Observe the tweetsCategory state from the ViewModel
     val tweetsCategoryResponse by viewModel.tweetsCategory.collectAsState(initial = NetworkResponse.Loading())
 
     when (tweetsCategoryResponse) {
         is NetworkResponse.Loading -> {
-            // Show a loading UI or placeholder if needed
             Text(text = "Loading...")
         }
 
@@ -58,7 +61,6 @@ fun CategoryScreen(
         }
 
         is NetworkResponse.Error -> {
-            // Handle error state
             Text(text = (tweetsCategoryResponse as NetworkResponse.Error).message.toString() ?: "Error")
         }
 
@@ -76,6 +78,10 @@ fun CategoryItem(category: String) {
             .padding(4.dp)
             .size(160.dp)
             .clip(RoundedCornerShape(8.dp))
+            .paint(
+                painter = painterResource(id = R.drawable.bg),
+                contentScale = ContentScale.Crop
+            )
             .border(1.dp, Color(0xFFEEEEEE)),
         contentAlignment = Alignment.BottomCenter
     ) {
