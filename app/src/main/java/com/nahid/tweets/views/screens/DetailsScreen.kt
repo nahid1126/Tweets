@@ -1,6 +1,8 @@
 package com.nahid.tweets.views.screens
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -22,10 +24,10 @@ import com.nahid.tweets.viewmodel.TweetsViewModel
 private const val TAG = "DetailsScreen"
 
 @Composable
-fun DetailsScreen() {
+fun DetailsScreen(cat: String?) {
     val tweetsViewModel: TweetsViewModel = hiltViewModel<TweetsViewModel>()
     LaunchedEffect(Unit) {
-        tweetsViewModel.reqForTweets("android")
+        cat?.let { tweetsViewModel.reqForTweets(it) }
     }
     val tweets by tweetsViewModel.tweets.collectAsState(initial = NetworkResponse.Loading())
     when (tweets) {
@@ -38,9 +40,12 @@ fun DetailsScreen() {
         }
 
         is NetworkResponse.Loading -> {
-            Text(
-                text = "Loading..."
-            )
+            Box(
+                modifier = Modifier.fillMaxSize(1f),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(text = "Loading...", style = MaterialTheme.typography.bodyLarge)
+            }
         }
 
         is NetworkResponse.Success -> {
@@ -60,7 +65,7 @@ fun DetailsScreen() {
 fun TweetsListItem(tweet: String) {
     Card(modifier = Modifier
         .fillMaxWidth()
-        .padding(16.dp),
+        .padding(20.dp, 10.dp),
         border = BorderStroke(1.dp, Color(0xFFCCCCCC)),
         content = {
             Text(

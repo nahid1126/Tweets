@@ -1,9 +1,11 @@
 package com.nahid.tweets.views.screens
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -31,6 +33,7 @@ import com.nahid.tweets.viewmodel.TweetsViewModel
 
 @Composable
 fun CategoryScreen(
+    onClick: (category: String) -> Unit
 ) {
 
     val viewModel: TweetsViewModel = hiltViewModel<TweetsViewModel>()
@@ -43,7 +46,12 @@ fun CategoryScreen(
 
     when (tweetsCategoryResponse) {
         is NetworkResponse.Loading -> {
-            Text(text = "Loading...")
+            Box(
+                modifier = Modifier.fillMaxSize(1f),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(text = "Loading...", style = MaterialTheme.typography.bodyLarge)
+            }
         }
 
         is NetworkResponse.Success -> {
@@ -55,7 +63,7 @@ fun CategoryScreen(
                 verticalArrangement = Arrangement.SpaceAround,
             ) {
                 items(categories!!.size) { index ->
-                    CategoryItem(category = categories[index])
+                    CategoryItem(category = categories[index], onClick)
                 }
             }
         }
@@ -72,10 +80,13 @@ fun CategoryScreen(
 
 
 @Composable
-fun CategoryItem(category: String) {
+fun CategoryItem(category: String, onClick: (category: String) -> Unit) {
     Box(
         modifier = Modifier
             .padding(4.dp)
+            .clickable {
+                onClick(category)
+            }
             .size(160.dp)
             .clip(RoundedCornerShape(8.dp))
             .paint(
