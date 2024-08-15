@@ -79,4 +79,6 @@ dependencies {
     kapt libs.kapt.hilt
     implementation libs.navigation.compose
     implementation libs.navigation.hilt.compose
+
+    implementation libs.splash.api
 }

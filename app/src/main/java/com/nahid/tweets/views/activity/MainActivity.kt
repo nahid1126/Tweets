@@ -14,6 +14,8 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -23,16 +25,24 @@ import com.nahid.tweets.ui.theme.TweetsTheme
 import com.nahid.tweets.views.screens.CategoryScreen
 import com.nahid.tweets.views.screens.DetailsScreen
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 private const val TAG = "MainActivity"
-
+private var keepSplash = false
 @ExperimentalMaterial3Api
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-
+        installSplashScreen().setKeepOnScreenCondition {
+            keepSplash
+        }
+        lifecycleScope.launch {
+            delay(2000)
+            keepSplash = false
+        }
         setContent {
             TweetsTheme {
                 Scaffold(topBar = {

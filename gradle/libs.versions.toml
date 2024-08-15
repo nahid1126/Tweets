@@ -15,6 +15,7 @@ retrofit_version = "2.9.0"
 logger_version = "4.11.0"
 navigation-compose-version = "2.7.7"
 navigation-compose-hilt-version = "1.2.0"
+splash-version = "1.0.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -55,6 +56,9 @@ kapt-hilt = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt_ve
 #navigation
 navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose-version" }
 navigation-hilt-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "navigation-compose-hilt-version" }
+
+#Splash Api
+splash-api = { module = "androidx.core:core-splashscreen", version.ref = "splash-version" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
