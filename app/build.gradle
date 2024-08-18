@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -79,6 +80,7 @@ dependencies {
     kapt libs.kapt.hilt
     implementation libs.navigation.compose
     implementation libs.navigation.hilt.compose
+    implementation libs.kotlinx.serialization.json
 
     implementation libs.splash.api
 }
