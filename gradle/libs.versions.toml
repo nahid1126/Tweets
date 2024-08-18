@@ -13,7 +13,8 @@ lifecycle_version = "2.5.1"
 coroutines_version = "1.6.0"
 retrofit_version = "2.9.0"
 logger_version = "4.11.0"
-navigation-compose-version = "2.7.7"
+composeNavigation = "2.8.0-alpha08"
+serialization = "1.6.3"
 navigation-compose-hilt-version = "1.2.0"
 splash-version = "1.0.1"
 
@@ -54,8 +55,9 @@ android-hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt_
 kapt-hilt = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt_version" }
 
 #navigation
-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose-version" }
+navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "composeNavigation" }
 navigation-hilt-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "navigation-compose-hilt-version" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization"}
 
 #Splash Api
 splash-api = { module = "androidx.core:core-splashscreen", version.ref = "splash-version" }
@@ -66,3 +68,4 @@ jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = 
 android-library = { id = "com.android.library", version.ref = "agp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt_version" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
